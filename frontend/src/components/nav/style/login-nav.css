@@ -1,0 +1,22 @@
+nav.main-navigation ul.second-menu
+{
+  display: flex;
+  gap: 20px; 
+  margin:0;
+  padding:0;
+  margin-right:30px;
+}
+
+
+ul.second-menu li{
+    margin:0;
+    padding:0;
+    list-style: none;
+}
+
+ul.second-menu li a.item
+{ 
+    text-decoration: none ;
+    color: aliceblue;
+}
+

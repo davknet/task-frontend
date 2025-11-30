@@ -1,0 +1,15 @@
+header .main-logo {
+  width:20%;  
+  font-weight: bold;
+  letter-spacing: 1px;
+  border:10px solid #fff;
+
+}
+
+.main-logo h4{
+
+    font-size: 2.3rem ;
+    font-weight: bold;
+    letter-spacing: 1px;
+    
+}
