@@ -1,68 +1,65 @@
-const express = require('express');
-const axios   = require('axios');
-const cors    = require('cors') ;
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 
+const GetTasks = () => {
 
+  const { user, token } = useContext(AuthContext);
+  const [tasks, setTasks] = useState([]);
+  const [error, setError] = useState(null);
 
-const app  = express() ;
-const PORT = 5000 ;
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const res = await axios.post("http://localhost:5000/api/tasks", {
+          data: { token }
+        });
 
-app.use(cors({
+        console.log("incoming_data", res.data);
 
-    origin:'http://localhost:5173' 
-}));
+        setTasks(res.data.tasks || []);
+      } catch (err) {
+        setError("Failed to fetch tasks");
+      }
+    };
 
-
-
-
-
-app.use(  express.json() );
-
-
-
-app.post('api/all-tasks' , async ( req , res ) => {
-
-    const { endpoint  , method = 'GET' ,  data = {} } = req.body ;
-
-    console.log('received data' , {endpoint , method , data }) ;
-
-    try
-    {
-
-        const response = await axios.post( endpoint , data );
-        
-
-
-
-
-
-        res.json(response.data ) ;
-
-    }catch(error)
-    {
-
-         console.error(error.message) ;
-         res.status(500).json({error : "something went wrong !!!" }) ;
-
+    if (user && token) {
+      fetchTasks();
     }
 
+  }, [user, token]);
 
+  return (
+    <div>
+      <h3>Your Tasks</h3>
 
+      {!user && <div>You must be logged in.</div>}
+      {error && <div>{error}</div>}
+      {tasks?.length === 0 && <div>No tasks found</div>}
 
-});
+      {tasks?.length > 0 && tasks.map(task => (
+        <div key={task.id} style={{ marginBottom: "20px" }}>
+          <h4>{task.title}</h4>
+          <p>Priority: {task.task_priority}</p>
 
+          <strong>Answers:</strong>
+          {task.answers?.length > 0 ? (
+            <div>
+              {task.answers.map((ans, index) => (
+                <div key={index} style={{ paddingLeft: "15px" }}>
+                  {ans.answer || ans.value || JSON.stringify(ans)}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ paddingLeft: "15px" }}>No answers yet</div>
+          )}
 
+        </div>
+      ))}
 
+    </div>
+  );
+};
 
-
-
-
-
-
-
-
-app.listen(PORT, () => {
-
- console.log(`Server running on http://localhost:${PORT}`);
-
-});
+export default GetTasks;

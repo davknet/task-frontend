@@ -6,11 +6,15 @@ import Tasks from "./components/pages/Tasks";
 import Create from "./components/pages/Create";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
+import { AuthProvider } from "./components/context/AuthContext";
 
 function App() {
 
   return (
     <>
+
+
+    <AuthProvider>
 
        <Router>
                    
@@ -28,6 +32,8 @@ function App() {
             </div>
 
          </Router>
+
+         </AuthProvider>
       
 
     </>

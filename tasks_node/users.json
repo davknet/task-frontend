@@ -1,0 +1,14 @@
+{
+  "2": {
+    "userData": {
+      "id": 2,
+      "name": "David",
+      "last_name": "kahadze",
+      "email": "davk@gmail.com",
+      "email_verified_at": null,
+      "created_at": "2025-11-25T14:09:00.000000Z",
+      "updated_at": "2025-11-25T14:09:00.000000Z"
+    },
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIwMTlhY2E0Yi0xZjVhLTczZDYtOGQyMy03ODRkZDEzZDc3MjUiLCJqdGkiOiJmMTk3Zjc5M2IzNGRhNmQwOTllOWM2ZDlmOWNiNzQyNmRiOGZlOTNhYzVhZjAzYTYzOGZiN2ZiNmNkNTA3ZGQzNDQ3OTVhOWNiNDEzNmU5YSIsImlhdCI6MTc2NDU5NzUxOC44NzQ2NzUsIm5iZiI6MTc2NDU5NzUxOC44NzQ2NzcsImV4cCI6MTc2NDYwMTExOC44NzEyNjksInN1YiI6IjIiLCJzY29wZXMiOltdfQ.P7x4-mN-kGCH8sTgd6UDH3LmoLMCqzcrMHbxAz8CuS3S3rQAczfUtE_GTHIrrknDNs1F1wNCi7M_JLdsSBBA5ZqH6eZXOcnjr3sY0G3puRTKPhoJzCYSNffJsJQmpNeZzOAApf7hqHZIqcpnlJG3g6NQxKlc1aefE0-EQNxbTRdQP3VetRQnb-dg8uk7RYMD_u1g8XilH9vEWn8WHBBIoBf0Qop9B-1Dp3PLBn3dd_G9hyzR4xkJViP1u3NJ6LpxNjjIW1iwg9m5SU997CH810wppxy3Aox2Rasb7JBwhsyOLVlPLU-jk85mT5ySHgMyXEEkCqePQigEXEv2iEUSaNYrNIjb9hUGjBxJpMDIj2myobQ2XGK70yRzihvrTLRx0I7FloRHEcwFduuGpFay37LCCPzR2CikwNLD9oGXs9Z-j1l-kRfPu8vIl95OcYvD4VaEcZs2pPB0fc5BHuRFvJCrBRjVAMsTom9gvzjhkfEM4GwUemRnfsWMcjmBUbzGj_oCq97kLn57bCtQq-k5L0zDg95w81ySYoDmUhMFEBjdj8aBm7eCzgtkYzuZoZpkABYzwM5NIlRZqWA_KH8ohCGhzhnh_3FBqRQge2pBcR07-C8JECVh6EtjXRRwA2p30ToZXwAAXI26WXWuaAsM5eKfq0V5ggLA4b9N2TGi8n0"
+  }
+}

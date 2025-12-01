@@ -1,6 +1,12 @@
 
-import React, { useState } from "react";
+import React, {  useState  , useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import './style/style.css' ;
+import { useNavigate } from "react-router-dom";
+
+
+
+
 
 
 
@@ -15,9 +21,43 @@ import './style/style.css' ;
 
 const LoginForm = () => {
 
-   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [email , setEmail ]       = useState("");
+  const [password , setPassword ] = useState("");
+  const [errors, setErrors]       = useState({});
+  const {login}                   = useContext(AuthContext);
+  const navigate                  = useNavigate();
+
+
+  const handleSubmit = async (e) => {
+
+
+      e.preventDefault();
+      setErrors({});
+
+      let validationErrors = {} ;
+
+      if (!email || email.length === 0 ) validationErrors.email           = "Email or Username is require !!!  " ;
+      if (!password || password.length === 0 ) validationErrors.password  = "Password is required";
+
+      if(Object.keys(validationErrors).length > 0 )
+      {
+        setErrors(validationErrors) ;
+        return ; 
+      }
+
+
+
+      const res = await login(  email , password   ) ;
+
+      if(!res )
+      {
+          validationErrors.password = 'server error !!! ' ;
+          setErrors(validationErrors);
+      }
+
+       navigate("/tasks");
+
+  }
 
 
 
@@ -27,7 +67,7 @@ const LoginForm = () => {
 
              <div className="login-container">
                         <h2>Login</h2>
-                            <form onSubmit={{/*handleSubmit*/}} className="login-form">
+                            <form onSubmit={handleSubmit} className="login-form">
                                 <div className="form-group">
                                 <label>Email</label>
                                 <input
