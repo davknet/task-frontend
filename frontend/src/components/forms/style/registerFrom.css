@@ -1,0 +1,46 @@
+.form-wrapper{
+    margin:0;
+    padding:0;
+    width:100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-form
+{
+     display: flex; 
+     flex-direction: column;
+      width:399px;
+    
+}
+
+div.input-wrapper
+{
+
+    width:100%;
+    overflow: hidden ;
+    padding:10px;
+    display: flex ;
+    flex-direction: column ;
+    justify-content: left ;
+    gap: 5px ;
+
+}
+
+ input {
+    margin-bottom: 4px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+
+   
+     
+
+
+
+
