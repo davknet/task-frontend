@@ -26,8 +26,9 @@ const RegisterNewUser = async  ( name , last_name , email , password ) => {
              "last_name" : last_name ,
              "email"     : email     ,
              "password"  : password 
-             
+
          });
+         
   return response.data ;
 
 }

@@ -71,7 +71,7 @@ const GetTasks = () => {
 
   </div>
 ))}
-           }
+           
       </div>
     </div>
   );
