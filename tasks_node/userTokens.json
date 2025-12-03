@@ -6,5 +6,9 @@
   "34911d6f-0e3b-40d7-80bc-8b1aeb392880": {
     "userId": 2,
     "laravelToken": "laravel-token-for-user-2"
+  },
+  "0c45cbb4-0279-416a-810e-d8168d88d15e": {
+    "userId": 9,
+    "laravelToken": "laravel-token-for-user-9"
   }
 }

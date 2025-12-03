@@ -75,10 +75,10 @@ const RegisterForm = () => {
 
         }) ;
         
-           const response =  await RegisterNewUser(first_name , last_name , email , password ) ;
+           const response =  await RegisterNewUser( first_name , last_name , email , password  ) ;
 
          
-           if( response.data ){
+           if( response.success ){
                 
              navigate('/login');
              return ;

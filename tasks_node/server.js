@@ -20,7 +20,7 @@ app.post('/api/login' , async(req , res ) => {
     const method   = 'POST';
     const {  data = {} } = req.body;
 
-    console.log('received data', { endpoint, method, data });
+    // console.log('received data', { endpoint, method, data });
 
     try {
        
@@ -54,10 +54,40 @@ app.post('/api/login' , async(req , res ) => {
 
 app.post('/api/register', async (req , res ) => {
 
-    const endpoint = 'http://127.0.0.1:8000/api/auth/login';
-    const method   = 'POST';
+    const endpoint       = 'http://127.0.0.1:8000/api/auth/register';
+    const method         = 'POST';
+    const data           = req.body;
+  try {
+
+    // console.log(req.body);
+
+      let config = {
+                  method: method ,
+                  maxBodyLength: Infinity,
+                  url: endpoint ,
+                  headers: { 
+                    'Content-Type'  : 'application/json'
+                  },
+                  data : req.body 
+                 };
+      const   response =   await axios.request(config);
 
 
+      const data_to_return =  {
+
+         "success" : response.data.success ,
+         "message" : response.data.message 
+
+        };
+
+        // console.log(data_to_return) ;
+
+      return res.json( data_to_return );
+  }catch(error)
+  {
+        console.error(error.message);
+        res.status(500).json({ error: "something went wrong !!!" });
+  }
 });
 
 
