@@ -21,16 +21,14 @@ const RegisterNewUser = async  ( name , last_name , email , password ) => {
        
          console.log( name , last_name , email , password  );
 
-         const response = await axios.post(endpoint , {
+         const response = await axios.post( endpoint , {
 
              "name"      : name      ,
              "last_name" : last_name ,
              "email"     : email     ,
              "password"  : password 
-
+             
          });
-
-         
 
   return response.data ;
 

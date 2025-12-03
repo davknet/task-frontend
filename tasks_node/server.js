@@ -3,8 +3,8 @@ const axios                 = require('axios');
 const cors                  = require('cors');
 const app                   = express();
 const PORT                  = 5000;
-const { generateUserToken } = require('./tokenUtils.js');
-const { addUser }           = require('./storageUtils.js');
+const { generateUserToken , getBackendToken } = require('./tokenUtils.js');
+const { addUser , getUser  }                  = require('./storageUtils.js');
 
 app.use(cors({
     origin: 'http://localhost:5173'
@@ -92,6 +92,60 @@ app.post('/api/register', async (req , res ) => {
 
 
 
+
+
+app.post('/api/tasks' , async (req , res ) => {
+
+   
+    const  method         = 'GET' ;
+    const  received_data  = req.body.data ;
+    console.log(received_data.token );
+    const  uuid           = received_data.token;
+    const  backendToken   = getBackendToken(uuid);  
+    console.log(backendToken) ;
+    const  user_id        = backendToken.userId;
+    const  user           = getUser(user_id);
+    const  token          = user.token;   
+
+
+    const  endpoint = `http://127.0.0.1:8000/api/tasks?user_id=${user_id}`;
+
+
+    try{
+              let config = {
+                method: method ,
+                maxBodyLength: Infinity,
+                url: endpoint ,
+                headers: { 
+                 'Authorization' : token  
+                } ,
+                data : ''
+              };
+
+         const response =  await  axios.request(config);
+         return res.json(response.data);
+
+    }catch(error)
+    {
+
+        console.error(error.message);
+        res.status(500).json({ error: "something went wrong !!!" });
+
+    }
+});
+
+
+// create 
+
+
+
+app.post('/api/create' , async ( req , res ) => {
+
+  const endpoint = 'http://127.0.0.1:8000/api/make/manager/create';
+  const method   = 'POST';
+  
+
+});
 
 
 

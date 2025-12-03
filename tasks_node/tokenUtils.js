@@ -13,14 +13,18 @@ function saveTokens() {
     fs.writeFileSync(TOKEN_FILE, JSON.stringify(userTokens, null, 2));
 }
 
-export function generateUserToken(userId) {
-    const laravelToken = `laravel-token-for-user-${userId}`;
-    const uuidToken = uuidv4();
+export function generateUserToken(userId)
+{
+    const laravelToken    = `laravel-token-for-user-${userId}`;
+    const uuidToken       =  uuidv4();
     userTokens[uuidToken] = { userId, laravelToken };
     saveTokens();
     return uuidToken;
 }
 
-export function getBackendToken(uuidToken) {
+
+
+export function getBackendToken(uuidToken) 
+{
     return userTokens[uuidToken] || null;
 }
