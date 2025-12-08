@@ -1,0 +1,91 @@
+.card {
+    width: 60%;
+    background: #ffffff;
+    margin: 20px 0;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dce3ec;
+}
+
+
+.card .question h5 {
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    line-height: 1.4;
+    color: #2b2f36;
+}
+
+
+.priority p {
+    margin: 0;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #6b6f76;
+}
+
+
+.answers {
+    margin-top: 20px;
+}
+
+.answers p {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+
+.radio {
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+
+.radio label {
+    margin-left: 8px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+
+.radio input {
+    transform: scale(1.2);
+    margin: 8px 0;
+}
+
+
+.card:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    transition: 0.2s;
+}
+
+.radio input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 8px 0;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #666;
+    border-radius: 4px;   
+    outline: none;
+    cursor: pointer;
+    position: relative;
+}
+
+
+.radio input[type="radio"]:checked {
+    background-color: #4a90e2; /* Blue fill */
+    border-color: #4a90e2;
+}
+
+.radio input[type="radio"]:checked::after {
+    content: "✔";
+    color: white;
+    font-size: 15px;
+    position: absolute;
+    top: 3px;
+    left: 5px;
+}
+
+

@@ -3,12 +3,12 @@ import axios from "axios";
 
 
 
-export const AuthContext = createContext();
+export const AuthContext   = createContext();
 
 
-export const AuthProvider = ({ children }) => { 
+export const AuthProvider  = ({ children }) => { 
 
-  const [user, setUser] = useState(null);
+  const [user, setUser]    = useState(null);
   const [token, setToken] = useState(null);
 
   
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
 
 
-    const login = async (email, password) => {
+    const login = async ( email , password ) => {
 
         try{
 

@@ -11,6 +11,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 
@@ -57,6 +58,8 @@ app.post('/api/register', async (req , res ) => {
     const endpoint       = 'http://127.0.0.1:8000/api/auth/register';
     const method         = 'POST';
     const data           = req.body;
+
+
   try {
 
     // console.log(req.body);
@@ -99,33 +102,35 @@ app.post('/api/tasks' , async (req , res ) => {
    
     const  method         = 'GET' ;
     const  received_data  = req.body.data ;
-    console.log(received_data.token );
+       // console.log( received_data.token );
     const  uuid           = received_data.token;
     const  backendToken   = getBackendToken(uuid);  
-    console.log(backendToken) ;
+      // console.log( backendToken );
     const  user_id        = backendToken.userId;
-    const  user           = getUser(user_id);
+    const  user           = getUser( user_id );
     const  token          = user.token;   
 
 
-    const  endpoint = `http://127.0.0.1:8000/api/tasks?user_id=${user_id}`;
+    const  endpoint = `http://127.0.0.1:8000/api/tasks?user_id=${user_id}` ;
 
 
     try{
               let config = {
                 method: method ,
-                maxBodyLength: Infinity,
+                maxBodyLength : Infinity,
                 url: endpoint ,
                 headers: { 
-                 'Authorization' : token  
+
+                 'Authorization' :  `Bearer ${token}` 
                 } ,
                 data : ''
               };
 
-         const response =  await  axios.request(config);
-         return res.json(response.data);
+         const response  =  await axios.request( config );
 
-    }catch(error)
+         return res.json( response.data );
+
+    }catch( error )
     {
 
         console.error(error.message);
@@ -141,11 +146,136 @@ app.post('/api/tasks' , async (req , res ) => {
 
 app.post('/api/create' , async ( req , res ) => {
 
-  const endpoint = 'http://127.0.0.1:8000/api/make/manager/create';
-  const method   = 'POST';
-  
+            const endpoint = 'http://127.0.0.1:8000/api/make/manager/create';
+            const method   = 'POST';
+            const data     = req.body.data ;
+            const uuid         = data.token;
+            const backend_uuid = getBackendToken(uuid);
+            const user_id      = backend_uuid.userId;
+            const user         = getUser(user_id);
+            const token        = user.token   ;
+
+
+
+ 
+
+   try{
+
+                      let data_1 = JSON.stringify({
+                        "s_time": new Date().toISOString().slice(0, 19).replace("T", " ") ,
+                        "user_id": user_id ,
+                        "task_id": data.task_id,
+                        "priority_id": data.priority_id ,
+                        "status_id": data.status_id ,
+                        "answer_id": null
+                      });
+
+
+                      if (!token || token.length < 10) {
+                        console.error("❌ EMPTY TOKEN — STOP REQUEST");
+                        return res.status(401).json({ error: "Invalid Laravel token" });
+                      }
+
+                   let config = {
+                                  method: 'post',
+                                  maxBodyLength: Infinity,
+                                  url: 'http://127.0.0.1:8000/api/make/manager/create',
+                                  headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`  
+                                  },
+                                  data : data_1
+                                };
+
+
+
+      
+
+                  const response   =  await  axios.request(config);
+
+                  console.log(response);
+                  
+                  return res.json(response.data);
+
+                }catch(error)
+                {
+                      console.error(error.message);
+                      res.status(500).json({ error: "something went wrong !!!" });
+                }
+
+              });
+
+
+
+app.post("/api/update" , async ( req ,  res ) => {
+
+ 
+      const method   = 'PATCH' ;
+      const data     = req.body.data ;
+      console.log( req.body   );
+      const uuid     = data.token;
+      const row_id   = data.task_id  ;
+
+      // console.log({   uuid : uuid });
+      // console.log({ row_id : row_id });
+
+
+      const backend_uuid = getBackendToken(uuid);
+      // console.log({ backend_uuid : backend_uuid });
+      const user_id  = backend_uuid.userId;
+      // console.log({ user_id : user_id});
+      const user     = getUser(user_id);
+      // console.log({ user : user });
+      const token    = user.token;
+      console.log({ token : token });
+      const endpoint = `http://127.0.0.1:8000/api/make/manager/update/${row_id}/status`;
+
+        try{
+
+        let   new_data = JSON.stringify({
+
+          "user_id": user_id ,
+          "status": "completed"
+
+        });
+
+
+        // console.log({ new_data : new_data });
+
+       let config = {
+                        method: method,
+                        maxBodyLength: Infinity,
+                        url: endpoint,
+                        headers: {
+                          'Content-Type': 'application/json',
+                          'Authorization': `Bearer ${token}`  
+                        },
+                        data: new_data
+                      };
+
+           const response = await axios.request( config ); 
+
+           res.json(response.data);
+
+        }catch(error)
+        {
+             console.error(error.message);
+             res.status(500).json({ error: "something went wrong !!!" });
+        }
+   
+
+
 
 });
+
+
+
+
+
+
+
+
 
 
 

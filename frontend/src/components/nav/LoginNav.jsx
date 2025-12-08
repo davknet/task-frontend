@@ -26,8 +26,7 @@ const LoginNav = () => {
         <>
            <ul className="second-menu">
 
-             { 
-               user && token ?(
+             { user && token ?(
                 <>
                     <li><span className="item"> Hello, {user.name}</span></li>
                     <li><Link to="/profile" className="item">Profile</Link></li>
