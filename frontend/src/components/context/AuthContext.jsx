@@ -18,7 +18,7 @@ export const AuthProvider  = ({ children }) => {
     const savedToken = localStorage.getItem("token");
 
     if (savedUser && savedToken) {
-      setUser(savedUser);
+      setUser(JSON.parse(savedUser));
       setToken(savedToken);
     }
 
@@ -55,7 +55,7 @@ export const AuthProvider  = ({ children }) => {
             localStorage.setItem("user", JSON.stringify(userData) );
             localStorage.setItem("token", tokenData);
 
-            return res ;
+           return { success: true , res : res };
 
 
         }catch(error)

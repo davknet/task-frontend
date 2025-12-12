@@ -21,7 +21,7 @@ app.post('/api/login' , async(req , res ) => {
     const method   = 'POST';
     const {  data = {} } = req.body;
 
-    // console.log('received data', { endpoint, method, data });
+   
 
     try {
        
@@ -40,7 +40,16 @@ app.post('/api/login' , async(req , res ) => {
          "token"     : uuid 
         };
         res.json( new_data );
-    } catch (error) {
+    }catch(error) 
+    {
+
+           if (error.response)
+            {
+           
+              return res.status(error.response.status).json(error.response.data);
+
+            }
+
         console.error(error.message);
         res.status(500).json({ error: "something went wrong !!!" });
     }
@@ -53,7 +62,8 @@ app.post('/api/login' , async(req , res ) => {
  */
 
 
-app.post('/api/register', async (req , res ) => {
+app.post('/api/register', async (req , res ) => 
+  {
 
     const endpoint       = 'http://127.0.0.1:8000/api/auth/register';
     const method         = 'POST';
@@ -62,7 +72,7 @@ app.post('/api/register', async (req , res ) => {
 
   try {
 
-    // console.log(req.body);
+    
 
       let config = {
                   method: method ,
@@ -83,14 +93,25 @@ app.post('/api/register', async (req , res ) => {
 
         };
 
-        // console.log(data_to_return) ;
+        
 
       return res.json( data_to_return );
   }catch(error)
   {
+
+      if (error.response)
+        {
+          
+        return res.status(error.response.status).json(error.response.data);
+
+
+       }
+        
         console.error(error.message);
         res.status(500).json({ error: "something went wrong !!!" });
   }
+
+
 });
 
 
@@ -102,10 +123,10 @@ app.post('/api/tasks' , async (req , res ) => {
    
     const  method         = 'GET' ;
     const  received_data  = req.body.data ;
-       // console.log( received_data.token );
+
     const  uuid           = received_data.token;
     const  backendToken   = getBackendToken(uuid);  
-      // console.log( backendToken );
+
     const  user_id        = backendToken.userId;
     const  user           = getUser( user_id );
     const  token          = user.token;   
@@ -128,11 +149,20 @@ app.post('/api/tasks' , async (req , res ) => {
 
          const response  =  await axios.request( config );
 
+         console.log(response );
+
          return res.json( response.data );
 
     }catch( error )
     {
 
+
+         if(error.response) 
+          {
+           
+            return res.status(error.response.status).json(error.response.data);
+        
+         }
         console.error(error.message);
         res.status(500).json({ error: "something went wrong !!!" });
 
@@ -147,19 +177,17 @@ app.post('/api/tasks' , async (req , res ) => {
 app.post('/api/create' , async ( req , res ) => {
 
             const endpoint = 'http://127.0.0.1:8000/api/make/manager/create';
-            const method   = 'POST';
-            const data     = req.body.data ;
+            const method       = 'POST';
+            const data         = req.body.data ;
             const uuid         = data.token;
             const backend_uuid = getBackendToken(uuid);
             const user_id      = backend_uuid.userId;
             const user         = getUser(user_id);
             const token        = user.token   ;
 
+            console.log( data ) ;
 
-
- 
-
-   try{
+                   try{
 
                       let data_1 = JSON.stringify({
                         "s_time": new Date().toISOString().slice(0, 19).replace("T", " ") ,
@@ -167,11 +195,12 @@ app.post('/api/create' , async ( req , res ) => {
                         "task_id": data.task_id,
                         "priority_id": data.priority_id ,
                         "status_id": data.status_id ,
-                        "answer_id": null
+                        "answer_id": data.answer_id 
                       });
 
 
-                      if (!token || token.length < 10) {
+                      if (!token || token.length < 10) 
+                      {
                         console.error("❌ EMPTY TOKEN — STOP REQUEST");
                         return res.status(401).json({ error: "Invalid Laravel token" });
                       }
@@ -188,23 +217,24 @@ app.post('/api/create' , async ( req , res ) => {
                                   data : data_1
                                 };
 
-
-
-      
-
-                  const response   =  await  axios.request(config);
-
-                  console.log(response);
-                  
-                  return res.json(response.data);
+                  const response   =  await  axios.request( config );
+                  return res.json(  response.data  );
 
                 }catch(error)
-                {
-                      console.error(error.message);
-                      res.status(500).json({ error: "something went wrong !!!" });
+                { 
+                        if(error.response)
+                        {
+                    
+                         console.log( { error_response : error.response.data } );
+                         return res.status(error.response.status).json(error.response.data);
+
+                        }
+
+                       console.error(error);
+                       res.status(500).json({ error: " something went wrong !!! " });
                 }
 
-              });
+ });
 
 
 
@@ -213,20 +243,16 @@ app.post("/api/update" , async ( req ,  res ) => {
  
       const method   = 'PATCH' ;
       const data     = req.body.data ;
-      console.log( req.body   );
+      console.log({ data : data });
       const uuid     = data.token;
-      const row_id   = data.task_id  ;
-
-      // console.log({   uuid : uuid });
-      // console.log({ row_id : row_id });
-
+      const row_id   = data.id  ;
 
       const backend_uuid = getBackendToken(uuid);
-      // console.log({ backend_uuid : backend_uuid });
+      //   console.log({ backend_uuid : backend_uuid });
       const user_id  = backend_uuid.userId;
-      // console.log({ user_id : user_id});
+      //   console.log({ user_id : user_id});
       const user     = getUser(user_id);
-      // console.log({ user : user });
+      //   console.log({ user : user });
       const token    = user.token;
       console.log({ token : token });
       const endpoint = `http://127.0.0.1:8000/api/make/manager/update/${row_id}/status`;
@@ -255,11 +281,19 @@ app.post("/api/update" , async ( req ,  res ) => {
                       };
 
            const response = await axios.request( config ); 
-
+             
            res.json(response.data);
 
         }catch(error)
         {
+
+             if (error.response) 
+              {
+
+               
+                return res.status(error.response.status).json(error.response.data);
+              }
+             
              console.error(error.message);
              res.status(500).json({ error: "something went wrong !!!" });
         }

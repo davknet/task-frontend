@@ -55,7 +55,7 @@ const LoginForm = () => {
           setErrors(validationErrors);
       }
 
-       navigate("/tasks");
+       navigate("/home");
 
   }
 
